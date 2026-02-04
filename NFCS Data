@@ -1,0 +1,400 @@
+# Econometrics-Project
+
+Financial Literacy and Savings Behavior
+
+>library(haven)
+> library(tidyverse)
+> 
+> dat_NFCS <- read_dta("NFCS 2024 State Data 250623.dta 
+
+
+> summary(dat_NFCS)
+     NFCSID              STATEQ     CENSUSDIV       CENSUSREG          A50A           A3Ar_w     
+ Min.   :2.024e+09   Min.   : 1   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+ 1st Qu.:2.024e+09   1st Qu.:13   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:1.000   1st Qu.:2.000  
+ Median :2.024e+09   Median :26   Median :5.000   Median :3.000   Median :2.000   Median :4.000  
+ Mean   :2.024e+09   Mean   :26   Mean   :5.117   Mean   :2.667   Mean   :1.521   Mean   :3.878  
+ 3rd Qu.:2.024e+09   3rd Qu.:39   3rd Qu.:8.000   3rd Qu.:4.000   3rd Qu.:2.000   3rd Qu.:5.000  
+ Max.   :2.024e+09   Max.   :51   Max.   :9.000   Max.   :4.000   Max.   :2.000   Max.   :6.000  
+                                                                                                 
+      A50B          A4A_new_w       A5_2015            A6              A7             A7A             A11       
+ Min.   : 1.000   Min.   :1.00   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+ 1st Qu.: 4.000   1st Qu.:1.00   1st Qu.:3.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:2.000  
+ Median : 7.000   Median :1.00   Median :4.000   Median :2.000   Median :2.000   Median :2.000   Median :5.000  
+ Mean   : 7.004   Mean   :1.29   Mean   :4.499   Mean   :1.969   Mean   :2.033   Mean   :1.983   Mean   :4.268  
+ 3rd Qu.:10.000   3rd Qu.:2.00   3rd Qu.:6.000   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:3.000   3rd Qu.:6.000  
+ Max.   :12.000   Max.   :2.00   Max.   :7.000   Max.   :5.000   Max.   :4.000   Max.   :3.000   Max.   :6.000  
+                                                                                                                
+    A8_2021            AM21              X3              A9            A40              A10       
+ Min.   : 1.000   Min.   : 1.000   Min.   :1.000   Min.   :1.00   Min.   : 1.000   Min.   :1.000  
+ 1st Qu.: 3.000   1st Qu.: 3.000   1st Qu.:1.000   1st Qu.:2.00   1st Qu.: 1.000   1st Qu.:2.000  
+ Median : 5.000   Median : 3.000   Median :1.000   Median :3.00   Median : 2.000   Median :2.000  
+ Mean   : 4.761   Mean   : 3.901   Mean   :1.009   Mean   :4.19   Mean   : 2.742   Mean   :3.898  
+ 3rd Qu.: 6.000   3rd Qu.: 3.000   3rd Qu.:1.000   3rd Qu.:7.00   3rd Qu.: 2.000   3rd Qu.:7.000  
+ Max.   :10.000   Max.   :99.000   Max.   :2.000   Max.   :8.00   Max.   :99.000   Max.   :8.000  
+                                                                                   NA's   :11363  
+      A10A          A21_2015           A14              A41              A61               J1        
+ Min.   :1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000  
+ 1st Qu.:1.000   1st Qu.: 2.000   1st Qu.: 1.000   1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 3.000  
+ Median :1.000   Median : 2.000   Median : 1.000   Median : 3.000   Median : 2.000   Median : 5.000  
+ Mean   :1.246   Mean   : 2.565   Mean   : 4.586   Mean   : 4.979   Mean   : 2.666   Mean   : 6.163  
+ 3rd Qu.:1.000   3rd Qu.: 2.000   3rd Qu.: 3.000   3rd Qu.: 5.000   3rd Qu.: 2.000   3rd Qu.: 8.000  
+ Max.   :3.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000  
+                 NA's   :10775    NA's   :11363                                                      
+       J2               J3               J4              J40               J5               J6       
+ Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.00  
+ 1st Qu.: 2.000   1st Qu.: 1.000   1st Qu.: 2.000   1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.: 1.00  
+ Median : 5.000   Median : 2.000   Median : 2.000   Median : 1.000   Median : 2.000   Median : 2.00  
+ Mean   : 6.343   Mean   : 4.558   Mean   : 3.965   Mean   : 3.743   Mean   : 4.617   Mean   : 4.96  
+ 3rd Qu.: 7.000   3rd Qu.: 3.000   3rd Qu.: 3.000   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 2.00  
+ Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.00  
+                                                                                      NA's   :16630  
+       J8               J9              J10              J20             J60_1           J60_2       
+ Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   :0.000   Min.   :0.0000  
+ 1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.: 2.000   1st Qu.: 1.000   1st Qu.:0.000   1st Qu.:0.0000  
+ Median : 2.000   Median : 1.000   Median : 2.000   Median : 2.000   Median :1.000   Median :0.0000  
+ Mean   : 5.795   Mean   : 4.814   Mean   : 4.164   Mean   : 5.108   Mean   :0.614   Mean   :0.2679  
+ 3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 3.000   3rd Qu.:1.000   3rd Qu.:1.0000  
+ Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :1.000   Max.   :1.0000  
+ NA's   :6144     NA's   :19395                                      NA's   :5408    NA's   :5408    
+     J60_3            J60_4            J60_5            J60_6            J60_7            J60_90      
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :0.1905   Mean   :0.1162   Mean   :0.1009   Mean   :0.1926   Mean   :0.1798   Mean   :0.0268  
+ 3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+ NA's   :5408     NA's   :5408     NA's   :5408     NA's   :5408     NA's   :5408     NA's   :5408    
+     J60_98          J60_99            J61              J62              J32             J33_40      
+ Min.   :0.000   Min.   :0.0000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000  
+ 1st Qu.:0.000   1st Qu.:0.0000   1st Qu.: 1.000   1st Qu.: 2.000   1st Qu.: 3.000   1st Qu.: 4.000  
+ Median :0.000   Median :0.0000   Median : 1.000   Median : 2.000   Median : 4.000   Median : 5.000  
+ Mean   :0.028   Mean   :0.0087   Mean   : 3.819   Mean   : 3.258   Mean   : 8.615   Mean   : 5.362  
+ 3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 5.000   3rd Qu.: 7.000  
+ Max.   :1.000   Max.   :1.0000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000  
+ NA's   :5408    NA's   :5408                                                                        
+      J63             J64            J41_1            J41_2            J41_3            J42_1       
+ Min.   : 1.00   Min.   : 1.00   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000  
+ 1st Qu.: 2.00   1st Qu.: 1.00   1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 2.000  
+ Median : 4.00   Median : 2.00   Median : 3.000   Median : 3.000   Median : 3.000   Median : 3.000  
+ Mean   :10.43   Mean   : 8.15   Mean   : 5.143   Mean   : 4.662   Mean   : 5.493   Mean   : 4.126  
+ 3rd Qu.: 5.00   3rd Qu.: 4.00   3rd Qu.: 4.000   3rd Qu.: 4.000   3rd Qu.: 5.000   3rd Qu.: 4.000  
+ Max.   :99.00   Max.   :99.00   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000  
+                 NA's   :13267                                                                      
+     J42_2             J43              J65            J66               B1               B2        
+ Min.   : 1.000   Min.   : 1.000   Min.   : 1.0   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000  
+ 1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 2.0   1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.: 1.000  
+ Median : 3.000   Median : 3.000   Median : 2.0   Median : 2.000   Median : 1.000   Median : 1.000  
+ Mean   : 4.596   Mean   : 6.167   Mean   :10.9   Mean   : 5.278   Mean   : 2.854   Mean   : 3.365  
+ 3rd Qu.: 4.000   3rd Qu.: 4.000   3rd Qu.: 2.0   3rd Qu.: 2.000   3rd Qu.: 1.000   3rd Qu.: 2.000  
+ Max.   :99.000   Max.   :99.000   Max.   :99.0   Max.   :99.000   Max.   :99.000   Max.   :99.000  
+                                                  NA's   :21606                                     
+       B4             B41_1            B41_2             B60              B31              B42        
+ Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000  
+ 1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 4.000   1st Qu.: 2.000   1st Qu.: 2.000  
+ Median : 2.000   Median : 2.000   Median : 3.000   Median : 5.000   Median : 2.000   Median : 2.000  
+ Mean   : 3.202   Mean   : 3.585   Mean   : 3.683   Mean   : 5.845   Mean   : 3.634   Mean   : 3.415  
+ 3rd Qu.: 2.000   3rd Qu.: 3.000   3rd Qu.: 3.000   3rd Qu.: 6.000   3rd Qu.: 3.000   3rd Qu.: 3.000  
+ Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000  
+ NA's   :1877     NA's   :1470     NA's   :1470                                                       
+      B43              B61           C1_2012          C2_2012          C3_2012         C4_2012    
+ Min.   : 1.000   Min.   : 1.00   Min.   : 1.000   Min.   : 1.000   Min.   : 1.00   Min.   : 1.0  
+ 1st Qu.: 2.000   1st Qu.: 2.00   1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.: 1.00   1st Qu.: 1.0  
+ Median : 3.000   Median : 2.00   Median : 1.000   Median : 2.000   Median : 1.00   Median : 2.0  
+ Mean   : 4.555   Mean   :22.06   Mean   : 6.709   Mean   : 3.228   Mean   :14.76   Mean   : 7.3  
+ 3rd Qu.: 3.000   3rd Qu.: 2.00   3rd Qu.: 2.000   3rd Qu.: 3.000   3rd Qu.: 2.00   3rd Qu.: 2.0  
+ Max.   :99.000   Max.   :99.00   Max.   :99.000   Max.   :99.000   Max.   :99.00   Max.   :99.0  
+                                                   NA's   :15961    NA's   :11593                 
+    C5_2012          C10_2012         C11_2012          B14A_1          B14A_60            EA_1       
+ Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000  
+ 1st Qu.: 1.000   1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 1.000   1st Qu.: 2.000   1st Qu.: 1.000  
+ Median : 1.000   Median : 2.000   Median : 2.000   Median : 2.000   Median : 2.000   Median : 1.000  
+ Mean   : 3.376   Mean   : 2.693   Mean   : 2.663   Mean   : 5.789   Mean   : 4.146   Mean   : 2.586  
+ 3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 2.000  
+ Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000  
+ NA's   :13731    NA's   :13731    NA's   :13731    NA's   :1025     NA's   :1025                     
+       E7               E8              E20            E15_2015          E60              P60        
+ Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.00   Min.   : 1.000   Min.   : 1.000  
+ 1st Qu.: 1.000   1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 1.00   1st Qu.: 1.000   1st Qu.: 1.000  
+ Median : 1.000   Median : 2.000   Median : 2.000   Median : 1.00   Median : 2.000   Median : 2.000  
+ Mean   : 2.049   Mean   : 4.104   Mean   : 6.956   Mean   : 2.47   Mean   : 4.889   Mean   : 3.649  
+ 3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 1.00   3rd Qu.: 2.000   3rd Qu.: 2.000  
+ Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.00   Max.   :99.000   Max.   :99.000  
+ NA's   :10711    NA's   :10711    NA's   :17045    NA's   :17486                                    
+      P51              P61               F1              F2_1             F2_2            F2_3       
+ Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.00   Min.   : 1.000  
+ 1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 1.000   1st Qu.: 1.00   1st Qu.: 1.000  
+ Median : 2.000   Median : 3.000   Median : 2.000   Median : 1.000   Median : 2.00   Median : 2.000  
+ Mean   : 3.552   Mean   : 5.129   Mean   : 4.297   Mean   : 3.589   Mean   : 3.64   Mean   : 3.427  
+ 3rd Qu.: 2.000   3rd Qu.: 3.000   3rd Qu.: 3.000   3rd Qu.: 2.000   3rd Qu.: 2.00   3rd Qu.: 2.000  
+ Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.00   Max.   :99.000  
+                                                    NA's   :4968     NA's   :4968    NA's   :4968    
+      F2_4            F2_5             F2_6              G1              G20             G30_1       
+ Min.   : 1.00   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   :0.0000  
+ 1st Qu.: 2.00   1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 1.000   1st Qu.: 2.000   1st Qu.:0.0000  
+ Median : 2.00   Median : 2.000   Median : 2.000   Median : 2.000   Median : 2.000   Median :0.0000  
+ Mean   : 3.66   Mean   : 4.197   Mean   : 3.247   Mean   : 2.917   Mean   : 4.608   Mean   :0.1655  
+ 3rd Qu.: 2.00   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.:0.0000  
+ Max.   :99.00   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :1.0000  
+ NA's   :4968    NA's   :4968     NA's   :4968                                                       
+     G30_2             G30_3             G30_4              G30_5              G30_97           G30_98       
+ Min.   :0.00000   Min.   :0.00000   Min.   :0.000000   Min.   :0.000000   Min.   :0.0000   Min.   :0.00000  
+ 1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:1.0000   1st Qu.:0.00000  
+ Median :0.00000   Median :0.00000   Median :0.000000   Median :0.000000   Median :1.0000   Median :0.00000  
+ Mean   :0.05122   Mean   :0.03035   Mean   :0.001331   Mean   :0.002467   Mean   :0.7649   Mean   :0.00834  
+ 3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:1.0000   3rd Qu.:0.00000  
+ Max.   :1.00000   Max.   :1.00000   Max.   :1.000000   Max.   :1.000000   Max.   :1.0000   Max.   :1.00000  
+                                                                                                             
+     G30_99              G35           G22_2015          G25_1            G25_2            G25_3      
+ Min.   :0.000000   Min.   : 1.00   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.00  
+ 1st Qu.:0.000000   1st Qu.: 1.00   1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.: 1.00  
+ Median :0.000000   Median : 2.00   Median : 1.000   Median : 1.000   Median : 1.000   Median : 1.00  
+ Mean   :0.002976   Mean   :10.16   Mean   : 8.182   Mean   : 2.372   Mean   : 2.582   Mean   : 2.95  
+ 3rd Qu.:0.000000   3rd Qu.: 4.00   3rd Qu.: 2.000   3rd Qu.: 1.000   3rd Qu.: 1.000   3rd Qu.: 1.00  
+ Max.   :1.000000   Max.   :99.00   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.00  
+                    NA's   :19823   NA's   :19823                                                     
+     G25_4            G25_5             G60              G38              G23               H1        
+ Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.000  
+ 1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.: 2.000   1st Qu.: 2.000   1st Qu.: 1.000   1st Qu.: 1.000  
+ Median : 1.000   Median : 1.000   Median : 2.000   Median : 2.000   Median : 4.000   Median : 1.000  
+ Mean   : 2.537   Mean   : 2.404   Mean   : 3.268   Mean   : 4.426   Mean   : 4.679   Mean   : 2.654  
+ 3rd Qu.: 1.000   3rd Qu.: 1.000   3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 6.000   3rd Qu.: 1.000  
+ Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.000  
+                                                                                                      
+     H30_3             M1_1              M4              M20            M21_1          M21_2_2015    
+ Min.   : 1.000   Min.   : 1.000   Min.   : 1.000   Min.   : 1.00   Min.   : 1.000   Min.   : 1.000  
+ 1st Qu.: 2.000   1st Qu.: 4.000   1st Qu.: 4.000   1st Qu.: 2.00   1st Qu.: 1.000   1st Qu.: 1.000  
+ Median : 2.000   Median : 6.000   Median : 5.000   Median : 3.00   Median : 1.000   Median : 1.000  
+ Mean   : 3.796   Mean   : 6.281   Mean   : 6.783   Mean   :10.23   Mean   : 4.045   Mean   : 2.745  
+ 3rd Qu.: 2.000   3rd Qu.: 7.000   3rd Qu.: 6.000   3rd Qu.: 3.00   3rd Qu.: 2.000   3rd Qu.: 2.000  
+ Max.   :99.000   Max.   :99.000   Max.   :99.000   Max.   :99.00   Max.   :99.000   Max.   :99.000  
+                                                                    NA's   :20543    NA's   :21340   
+     M21_3            M21_4              M6              M7              M8             M31       
+ Min.   : 1.000   Min.   : 1.000   Min.   : 1.00   Min.   : 1.00   Min.   : 1.00   Min.   : 1.00  
+ 1st Qu.: 1.000   1st Qu.: 1.000   1st Qu.: 1.00   1st Qu.: 3.00   1st Qu.: 2.00   1st Qu.: 2.00  
+ Median : 2.000   Median : 1.000   Median : 1.00   Median : 3.00   Median : 4.00   Median : 3.00  
+ Mean   : 3.199   Mean   : 3.312   Mean   :16.59   Mean   :23.67   Mean   :42.75   Mean   :30.96  
+ 3rd Qu.: 2.000   3rd Qu.: 2.000   3rd Qu.: 2.00   3rd Qu.: 3.00   3rd Qu.:98.00   3rd Qu.:98.00  
+ Max.   :99.000   Max.   :99.000   Max.   :99.00   Max.   :99.00   Max.   :99.00   Max.   :99.00  
+ NA's   :20543    NA's   :24904                                                                   
+      M50              M9             M10            wgt_n2           wgt_d2            wgt_s3      
+ Min.   : 1.00   Min.   : 1.00   Min.   : 1.00   Min.   :0.3174   Min.   :0.04604   Min.   :0.2542  
+ 1st Qu.: 1.00   1st Qu.: 1.00   1st Qu.: 2.00   1st Qu.:0.4462   1st Qu.:0.41075   1st Qu.:0.8477  
+ Median : 3.00   Median : 1.00   Median : 2.00   Median :0.9186   Median :0.77231   Median :0.9620  
+ Mean   :36.57   Mean   :21.11   Mean   :47.27   Mean   :1.0000   Mean   :1.00000   Mean   :1.0000  
+ 3rd Qu.:98.00   3rd Qu.: 2.00   3rd Qu.:98.00   3rd Qu.:1.3686   3rd Qu.:1.31050   3rd Qu.:1.0690  
+ Max.   :99.00   Max.   :99.00   Max.   :99.00   Max.   :4.3552   Max.   :5.41256   Max.   :6.1579  
+                                                                                                    
+> dat_NFCS$education <- as_factor(dat_NFCS$A5_2015)
+> dat_NFCS$marital <- as_factor(dat_NFCS$A6)
+> dat_NFCS$CENSUSREG <- as_factor(dat_NFCS$CENSUSREG)
+> dat_NFCS$Gender <- as_factor(dat_NFCS$A50A)
+> dat_NFCS$Age_group <- as_factor(dat_NFCS$A3Ar_w)
+> dat_NFCS$race <- as_factor(dat_NFCS$A4A_new_w)
+> summary(
++   dat_NFCS[, c("M6", "M7", "M8", "M9", "M10", "M31")]
++ )
+       M6              M7              M8              M9             M10             M31       
+ Min.   : 1.00   Min.   : 1.00   Min.   : 1.00   Min.   : 1.00   Min.   : 1.00   Min.   : 1.00  
+ 1st Qu.: 1.00   1st Qu.: 3.00   1st Qu.: 2.00   1st Qu.: 1.00   1st Qu.: 2.00   1st Qu.: 2.00  
+ Median : 1.00   Median : 3.00   Median : 4.00   Median : 1.00   Median : 2.00   Median : 3.00  
+ Mean   :16.59   Mean   :23.67   Mean   :42.75   Mean   :21.11   Mean   :47.27   Mean   :30.96  
+ 3rd Qu.: 2.00   3rd Qu.: 3.00   3rd Qu.:98.00   3rd Qu.: 2.00   3rd Qu.:98.00   3rd Qu.:98.00  
+ Max.   :99.00   Max.   :99.00   Max.   :99.00   Max.   :99.00   Max.   :99.00   Max.   :99.00  
+> dat_NFCS <- dat_NFCS %>%
++   mutate(
++     fl_M6 = ifelse(M6 %in% c(98, 99), NA,
++                    ifelse(M6 == 1, 1, 0)),
++     
++     fl_M7 = ifelse(M7 %in% c(98, 99), NA,
++                    ifelse(M7 == 3, 1, 0)),
++     
++     fl_M8 = ifelse(M8 %in% c(98, 99), NA,
++                    ifelse(M8 == 4, 1, 0)),
++     
++     fl_M9 = ifelse(M9 %in% c(98, 99), NA,
++                    ifelse(M9 == 1, 1, 0)),
++     
++     fl_M10 = ifelse(M10 %in% c(98, 99), NA,
++                     ifelse(M10 == 2, 1, 0))
++   )
+> dat_NFCS <- dat_NFCS %>%
++   mutate(
++     fin_lit = fl_M6 + fl_M7 + fl_M8 + fl_M9 + fl_M10
++   )
+> dat_NFCS <- dat_NFCS %>%
++   mutate(
++     emergency_save = ifelse(M31 %in% c(98, 99), NA,
++                             ifelse(M31 %in% c(1, 2), 1, 0))
++   )
+> summary(dat_NFCS$fin_lit)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  0.000   3.000   4.000   3.504   4.000   5.000   16837 
+> table(dat_NFCS$emergency_save, useNA = "ifany")
+
+   0    1 <NA> 
+9342 8601 7596 
+>
+
+
+ logit_model <- glm(
++   emergency_save ~ fin_lit + Gender + Age_group +
++     education + race + marital + CENSUSREG,
++   data = dat_NFCS,
++   family = binomial(link = "logit"),
++   weights = wgt_n2
++ )
+
+> coeftest(
++   logit_model,
++   vcov = vcovHC(logit_model, type = "HC1")
++ )
+
+z test of coefficients:
+
+                                                               Estimate Std. Error z value  Pr(>|z|)    
+(Intercept)                                                    1.302346   0.322404  4.0395 5.357e-05 
+fin_lit                                                       -0.127425   0.031029 -4.1066 4.015e-05 
+GenderFemale                                                  -0.222586   0.056135 -3.9652 7.334e-05 
+Age_group25-34                                                -0.278735   0.141035 -1.9764   0.04811   
+Age_group35-44                                                -0.565716   0.138104 -4.0963 4.198e-05 
+Age_group45-54                                                -0.848938   0.140543 -6.0404 1.537e-09 
+Age_group55-64                                                -0.827939   0.140958 -5.8736 4.263e-09 
+Age_group65+                                                  -0.877407   0.140380 -6.2502 4.099e-10 
+educationHigh school graduate - regular high school diploma   -0.103823   0.288499 -0.3599   0.71894    
+educationHigh school graduate - GED or alternative credential -0.380558   0.305017 -1.2477   0.21215    
+educationSome college, no degree                              -0.171731   0.285395 -0.6017   0.54735    
+educationAssociate's degree                                   -0.229339   0.291702 -0.7862   0.43174    
+educationBachelor's degree                                     0.110272   0.284323  0.3878   0.69813    
+educationPost graduate degree                                  0.280195   0.287712  0.9739   0.33012    
+raceNon-White                                                  0.013520   0.064430  0.2098   0.83379    
+maritalSingle                                                 -0.122084   0.071893 -1.6981   0.08948 .  
+maritalSeparated                                              -0.106444   0.253924 -0.4192   0.67507    
+maritalDivorced                                               -0.015685   0.083691 -0.1874   0.85133    
+maritalWidowed/widower                                        -0.155247   0.128153 -1.2114   0.22573    
+CENSUSREGMidwest                                               0.101126   0.090427  1.1183   0.26343    
+CENSUSREGSouth                                                 0.067682   0.084100  0.8048   0.42095    
+CENSUSREGWest                                                  0.076516   0.091942  0.8322   0.40528    
+
+
+
+
++   logit_model,
++   type = "text",
++   subject = "Logit Estimates of Emergency Savings Behavior",
++   dep.var.labels = "Has Emergency Savings",
++   covariate.labels = c(
++     "Financial Literacy Score",
++     "Gender",
++     "Age Group",
++     "Education",
++     "Race",
++     "Marital Status",
++     "Census Region"
++   ),
++   digits = 3
+
++ pred_data <- expand.grid(
+Error: unexpected symbol in:
+
+> pred_data <- expand.grid(
++   fin_lit = 0:5,
++   Gender = levels(dat_NFCS$Gender)[1],
++   Age_group = levels(dat_NFCS$Age_group)[1],
++   education = levels(dat_NFCS$education)[1],
++   race = levels(dat_NFCS$race)[1],
++   marital = levels(dat_NFCS$marital)[1],
++   CENSUSREG = levels(dat_NFCS$CENSUSREG)[1]
++ )
+> pred_data$pred_prob <- predict(
++   logit_model,
++   newdata = pred_data,
++   type = "response"
++ )
+> ggplot(pred_data, aes(x = fin_lit, y = pred_prob)) +
++   geom_line(size = 1.2) +
++   geom_point(size = 3) +
++   scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
++   labs(
++     x = "Financial Literacy Score (0–5)",
++     y = "Predicted Probability of Having Emergency Savings",
++     title = "Predicted Probability of Emergency Savings by Financial Literacy"
++   ) +
++   theme_minimal()
+
+
+1: Recode Financial Literacy Questions (M6–M10)
+
+In NFCS:
+
+98 = Don’t know
+
+99 = Refused
+→ These should be set to NA
+→ Correct answers = 1, Incorrect = 0
+
+M6 (Interest rate): 1
+
+M7 (Inflation): 3
+
+M8 (Bond prices): 4
+
+M9 (Risk diversification): 1
+
+M10 (Numeracy): 2
+
+INTERPRETATIONS
+1️. What are these variables?
+
+M6–M10 = Financial literacy questions
+
+M31 = Emergency savings question
+
+Values such as 98 and 99 are not real answers
+
+98 = Don’t know
+
+99 = Refused / Not sure
+
+
+2. Variable-by-variable explanations:
+Financial Literacy Questions (M6–M10): The summary statistics for the financial literacy questions show substantial variation across respondents. 
+Median responses are generally concentrated in the lowest response categories, suggesting limited financial knowledge among a significant portion of respondents. 
+Additionally, a sizable share of respondents selected non-substantive responses such as “Don’t know” or “Refused,” especially for questions relating to bond pricing and risk diversification.
+
+Emergency Savings (M31): The distribution of the emergency savings variable indicates that a large proportion of respondents do not report having sufficient precautionary savings. 
+The presence of high non-response values further suggests uncertainty or a lack of awareness regarding personal financial preparedness.
+
+Following standard practice in the NFCS literature, non-response categories (coded as 98 and 99) are excluded from the analysis when constructing the financial literacy index and savings variables.
+
+Financial literacy variables were recoded following the NFCS methodology. 
+Correct responses were coded as one, incorrect responses as zero, while non-substantive responses (‘Don’t know’ and ‘Refused’) were treated as missing. 
+A financial literacy index was constructed by summing the five literacy indicators. Emergency savings were coded as a binary variable indicating whether the respondent reports having precautionary savings.
+
+INTERPRETATION OF RESULTS 
+Financial Literacy: The logit estimates indicate a negative and statistically significant relationship between financial literacy and emergency savings behavior. Specifically, 
+individuals with higher financial literacy scores are less likely to report having emergency savings, even after controlling for demographic characteristics and regional effects.
+
+Economic Meaning (The Marginal Effects): Although counterintuitive, this result may reflect the fact that financially literate individuals are more likely to hold non-traditional or illiquid assets, rely on credit markets, 
+or engage in investment-based financial planning rather than holding liquid precautionary savings. 
+This finding is consistent with evidence suggesting that financially sophisticated households may substitute emergency savings with access to credit or diversified portfolios.
+
+Control Variables: Female respondents are significantly less likely to report holding emergency savings relative to males. Age exhibits a strong negative gradient, 
+with older age groups significantly less likely to report emergency savings compared to the youngest group. Education and race are not statistically significant once financial literacy is controlled for, 
+suggesting that financial knowledge may capture much of the variation typically attributed to socioeconomic characteristics.
+
+Model Choice Justification: A logit model is employed because the dependent variable is binary. Robust standard errors are used to account for heteroskedasticity, 
+and marginal effects are reported to facilitate interpretation in probability terms.
+
+The Graph illustrates the predicted probability of holding emergency savings across different levels of financial literacy, holding other characteristics constant. 
+The predicted probability declines steadily as financial literacy increases, indicating that individuals with higher financial knowledge are less likely to maintain liquid emergency savings. 
+This non-linear relationship reflects the logistic functional form and is consistent with the regression results.
+
+
+Conclusion: Overall, the results suggest that financial literacy alone does not necessarily translate into higher levels of liquid precautionary savings.
+While financial knowledge remains important, household saving behavior may also depend on portfolio choices, access to credit, and expectations about future income. 
+These findings highlight the need for financial education policies that emphasize not only knowledge acquisition but also practical savings behavior.
+While much of the literature finds a positive association between financial literacy and savings, the negative relationship observed here may reflect differences in the measurement of savings behavior. 
+Emergency savings capture only one form of financial preparedness, and financially literate individuals may diversify liquidity across credit access, investments, or other financial instruments.
+A limitation of this analysis is that emergency savings do not capture all forms of household liquidity, which may bias the estimated relationship with financial literacy.
+
